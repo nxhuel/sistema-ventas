@@ -1,4 +1,4 @@
-# Sistema de Ventas
+ # Sistema de Ventas
 Para este proyecto se siguió el **Proceso Unificado**  [+Info](https://es.wikipedia.org/wiki/Proceso_unificado)
 
 
@@ -30,7 +30,7 @@ Para este proyecto se siguió el **Proceso Unificado**  [+Info](https://es.wikip
 <img width="616" height="575" alt="image" src="https://github.com/user-attachments/assets/e5853491-2b32-4d3b-bbd3-8dc99ac85f12" />
 
 ## Diagrama Entidad-Relación
-<img width="675" height="1956" alt="image" src="https://github.com/user-attachments/assets/654b2fa0-3f48-4910-8cfd-240d45471440" />
+<img width="1510" height="756" alt="image" src="https://github.com/user-attachments/assets/86bf43e0-9f59-45c6-b50c-86778ad741de" />
 
 ## Arquitectura
 
