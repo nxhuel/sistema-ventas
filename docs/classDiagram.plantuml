@@ -1,0 +1,73 @@
+@startuml
+enum Role {
+	USER
+	ADMIN
+}
+
+interface UserDetails
+
+class UserEntity {
+	- Long: id
+	- String: firstName
+	- String: lastName
+	- String: email
+	- String: password
+	- Role: role
+}
+
+class CategoryEntity {
+	- Long: id
+	- String: name
+	- String: description
+	- boolean: isActive
+	- List<ProductEntity>: productList
+}
+
+class ProductEntity {
+	- Long: id
+	- String: name
+	- String: description
+	- BigDecimal: price
+	- Long: stock
+	- boolean: isActive
+	- CategoryEntity: category
+}
+
+class ClientEntity {
+	- Long: id
+	- String: firstName
+	- String: lastName
+	- String: email
+	- String: adress
+	- boolean: isActive	
+}
+
+class SaleEntity {
+	- Long: id
+	- DateTime: dateTime
+	- BigDecimal: total
+	- String: paymentMethod 
+	- ClientEntity: client
+	---
+	+ calculateTotal()
+}
+
+class SaleDetailEntity {
+	- Long: id
+	- ProductEntity: product
+	- Long: amount
+	- BigDecimal: unitPrice
+	- BigDeciaml: subTotal
+	- SaleEntity: sale
+	---
+	+ calculateSubTotal()
+}
+
+Role "1" <- UserEntity 
+UserDetails <|..  UserEntity
+CategoryEntity "1" -- "1..*" ProductEntity
+ProductEntity "1" <-- "0..*" SaleDetailEntity
+SaleEntity "1" --> "0..*" SaleDetailEntity
+SaleEntity "0..*" --> "1" ClientEntity
+
+@enduml
