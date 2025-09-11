@@ -1,6 +1,5 @@
 # sistema-ventas
 
-```
 @startuml
 skinparam actorStyle awesome
 
@@ -86,4 +85,3 @@ Admin4 -- darDeBajaProducto
 Empleado4 -- actualizarProducto
 ' ================================================= '
 @enduml
-```
