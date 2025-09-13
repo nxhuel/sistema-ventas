@@ -71,7 +71,7 @@ public class UserRestAdapter {
 	@DeleteMapping("/v1/api/{id}")
 	public ResponseEntity<String> deleteUserById(@PathVariable Long id) throws UserNotFoundException {
 		userServicePort.deleteUserById(id);
-		return new ResponseEntity<>("User successfully deleted", HttpStatus.OK);
+		return new ResponseEntity<>("User successfully deleted", HttpStatus.NO_CONTENT);
 	}
 	
 	
