@@ -20,7 +20,7 @@ class CategoryEntity {
 	- String: name
 	- String: description
 	- boolean: isActive
-	- List<ProductEntity>: productList
+	- List<ProductEntity>: products
 }
 
 class ProductEntity {
