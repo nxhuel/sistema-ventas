@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.nxhu.sistema_ventas.categoryAndProduct.domain.exception.CategoryNotFoundException;
 import com.nxhu.sistema_ventas.user.domain.exception.UserNotFoundException;
 import com.nxhu.sistema_ventas.user.infrastructure.adapters.in.rest.model.response.ErrorResponse;
 
@@ -34,6 +35,19 @@ public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
 	}
 
+//	slice category
+	@ExceptionHandler(CategoryNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ResponseEntity<ErrorResponse> categoryNotFoundException(CategoryNotFoundException exception) {
+		ErrorResponse message = ErrorResponse.builder()
+				.status(HttpStatus.NOT_FOUND)
+				.message(exception.getMessage())
+				.details(List.of())
+				.timestamp(LocalDateTime.now())
+				.build();
+		
+		return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+	}
 
 //	global
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(

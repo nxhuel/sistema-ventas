@@ -18,10 +18,8 @@ public class CategoryModel {
 	private Long id;
 	private String name;
 	private String description;
-	
 	@Builder.Default
 	private boolean active = true;
-	
 	@Builder.Default
 	private List<ProductModel> products = new ArrayList<>();
 }

@@ -14,4 +14,5 @@ public interface CategoryPersistencePort {
     List<CategoryModel> findAllInactiveCategories();
 	
 	Optional<CategoryModel> findCategoryById(Long id);
+	
 }

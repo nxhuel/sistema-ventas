@@ -14,13 +14,12 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductModel {
-
 	private Long id;
 	private String name;
 	private String description;
 	private BigDecimal price;
 	private Long stock;
-	
 	@Builder.Default
 	private boolean active = true;
+	private CategoryModel category;
 }
