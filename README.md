@@ -39,6 +39,71 @@ Hexagonal + Vertical Slicing
 # Construcción
 
 ## Endpoints
+### Users
+```
+POST /user/v1/api HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Content-Length: 139
+
+{
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "password": ""
+}
+---
+GET /user/v1/api HTTP/1.1
+Host: localhost:8080
+[
+    {
+        "id": 0,
+        "firstName": "",
+        "lastName": "",
+        "email": "",
+        "role": ""
+    }
+]
+---
+GET /user/v1/api/0 HTTP/1.1
+Host: localhost:8080
+{
+    "id": 0,
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "role": ""
+}
+---
+PUT /user/v1/api/12 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Content-Length: 139
+
+{
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "password": ""
+}
+---
+PATCH /user/v1/api/12 HTTP/1.1
+Host: localhost:8080
+Content-Type: application/json
+Content-Length: 61
+{
+    "firstName": "",
+    "lastName": ""
+}
+---
+DELETE /user/v1/api/11 HTTP/1.1
+Host: localhost:8080
+```
+
+### Category
+
+### Products
+
 
 # Transición
 

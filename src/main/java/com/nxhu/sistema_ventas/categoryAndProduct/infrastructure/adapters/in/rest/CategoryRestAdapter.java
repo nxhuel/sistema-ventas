@@ -19,6 +19,7 @@ import com.nxhu.sistema_ventas.categoryAndProduct.domain.exception.CategoryNotFo
 import com.nxhu.sistema_ventas.categoryAndProduct.domain.model.CategoryModel;
 import com.nxhu.sistema_ventas.categoryAndProduct.infrastructure.adapters.in.rest.mapper.CategoryRestMapper;
 import com.nxhu.sistema_ventas.categoryAndProduct.infrastructure.adapters.in.rest.model.request.CategoryCreateRequest;
+import com.nxhu.sistema_ventas.categoryAndProduct.infrastructure.adapters.in.rest.model.response.CategoryProductResponse;
 import com.nxhu.sistema_ventas.categoryAndProduct.infrastructure.adapters.in.rest.model.response.CategoryResponse;
 
 import jakarta.validation.Valid;
@@ -59,6 +60,14 @@ public class CategoryRestAdapter {
 		return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
 	}
 	
+	@GetMapping("/v1/api/{id}/products")
+	public ResponseEntity<CategoryProductResponse> findCategoryWithProducts(@PathVariable Long id) throws CategoryNotFoundException {
+	    CategoryModel categoryModel = categoryServicePort.findById(id);
+	    CategoryProductResponse response = mapper.toCategoryProductResponse(categoryModel);
+	    return new ResponseEntity<>(response, HttpStatus.OK);
+	}
+
+	
 	@PatchMapping("/v1/api/{id}")
 	public ResponseEntity<CategoryResponse> patchCategory(
 			@PathVariable Long id, @RequestBody Map<String, Object> updates) throws CategoryNotFoundException {
@@ -70,6 +79,6 @@ public class CategoryRestAdapter {
 	@DeleteMapping("/v1/api/{id}")
 	public ResponseEntity<String> softDeleteCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
 		categoryServicePort.softDeleteCategoryById(id);
-		return new ResponseEntity<>("Category successfuly deleted", HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>("Category successfuly deleted", HttpStatus.OK);
 	}
 }

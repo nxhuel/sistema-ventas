@@ -1,6 +1,7 @@
 package com.nxhu.sistema_ventas;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -48,25 +49,29 @@ public class SistemaVentasApplication implements CommandLineRunner{
 		
 		userRepository.saveAll(userEntities);
 		
-		List<CategoryEntity> categoryEntities = Arrays.asList(
-				new CategoryEntity(null, "Tecnologia", "Tecnologia diversa", true, null),
-				new CategoryEntity(null, "Educación", "Libros, cursos, etc", true, null),
-				new CategoryEntity(null, "Servicios", "Disney plus, netflix, etc", true, null)
-				);
-		categoryRepository.saveAll(categoryEntities);
-		
-		List<ProductEntity> productEntities = Arrays.asList(
-			    new ProductEntity(null, "SmartTv", "Tv 8 pulgadas", new BigDecimal("800000"), 500L, true, categoryEntities.get(0)),
-			    new ProductEntity(null, "Laptop Gamer", "16GB RAM, RTX 3060", new BigDecimal("250000"), 50L, true, categoryEntities.get(0)),
-			    new ProductEntity(null, "Auriculares Bluetooth", "Sony WH-1000XM4", new BigDecimal("45000"), 200L, true, categoryEntities.get(0)),
-			    new ProductEntity(null, "Libro de Fisica", "Fisica II", new BigDecimal("12000"), 20L, true, categoryEntities.get(1)),
-			    new ProductEntity(null, "Libro de Programacion Java", "Guia completa", new BigDecimal("15000"), 30L, true, categoryEntities.get(1)),
-			    new ProductEntity(null, "Curso de Ingles Online", "Nivel intermedio", new BigDecimal("20000"), 25L, true, categoryEntities.get(1)),
-			    new ProductEntity(null, "Netflix", "Servicio por 12 meses", new BigDecimal("10000"), 100L, true, categoryEntities.get(2)),
-			    new ProductEntity(null, "Disney Plus", "12 meses de suscripción", new BigDecimal("12000"), 80L, true, categoryEntities.get(2)),
-			    new ProductEntity(null, "Spotify Premium", "12 meses de suscripción", new BigDecimal("8000"), 150L, true, categoryEntities.get(2))
-			);
+//		categorias
+		CategoryEntity tecnologia = new CategoryEntity(null, "Tecnologia", "Tecnologia diversa", true, new ArrayList<>());
+		CategoryEntity educacion = new CategoryEntity(null, "Educación", "Libros, cursos, etc", true, new ArrayList<>());
+		CategoryEntity servicios = new CategoryEntity(null, "Servicios", "Disney plus, netflix, etc", true, new ArrayList<>());
 
-		productRepository.saveAll(productEntities);
+		categoryRepository.saveAll(Arrays.asList(tecnologia, educacion, servicios));
+
+//		productos
+		ProductEntity tv = new ProductEntity(null, "SmartTv", "Tv 8 pulgadas", new BigDecimal("800000"), 500L, true, tecnologia);
+		ProductEntity laptop = new ProductEntity(null, "Laptop Gamer", "16GB RAM, RTX 3060", new BigDecimal("250000"), 50L, true, tecnologia);
+
+		ProductEntity libro = new ProductEntity(null, "Libro de Fisica", "Fisica II", new BigDecimal("12000"), 20L, true, educacion);
+
+		ProductEntity netflix = new ProductEntity(null, "Netflix", "Servicio por 12 meses", new BigDecimal("10000"), 100L, true, servicios);
+
+//		productos en categorias
+		tecnologia.getProducts().add(tv);
+		tecnologia.getProducts().add(laptop);
+		
+		educacion.getProducts().add(libro);
+
+		servicios.getProducts().add(netflix);
+		
+		productRepository.saveAll(Arrays.asList(tv, laptop, libro, netflix));
 	}
 }

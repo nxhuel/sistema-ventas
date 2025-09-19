@@ -1,16 +1,21 @@
 package com.nxhu.sistema_ventas.categoryAndProduct.infrastructure.adapters.in.rest;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nxhu.sistema_ventas.categoryAndProduct.application.ports.in.ProductServicePort;
+import com.nxhu.sistema_ventas.categoryAndProduct.domain.exception.ProductNotFoundException;
 import com.nxhu.sistema_ventas.categoryAndProduct.domain.model.ProductModel;
 import com.nxhu.sistema_ventas.categoryAndProduct.infrastructure.adapters.in.rest.mapper.ProductRestMapper;
 import com.nxhu.sistema_ventas.categoryAndProduct.infrastructure.adapters.in.rest.model.request.ProductCreateRequest;
@@ -47,4 +52,29 @@ public class ProductRestAdapter {
 		List<ProductResponse> productsResponse = mapper.toProductResponses(productsModel);
 		return new ResponseEntity<>(productsResponse, HttpStatus.OK);
 	}
+	
+	@GetMapping("/v1/api/{id}")
+	public ResponseEntity<ProductResponse> findProductById(@PathVariable Long id) throws ProductNotFoundException {
+		ProductModel productModel = productServicePort.findById(id);
+		ProductResponse productResponse = mapper.toProductResponse(productModel);
+		return new ResponseEntity<>(productResponse, HttpStatus.OK);
+	}
+	
+	@PatchMapping("/v1/api/{id}")
+	public ResponseEntity<ProductResponse> patchProductById(
+			@PathVariable Long id, 
+			@RequestBody Map<String, Object> updates) throws ProductNotFoundException {
+		ProductModel productModel = productServicePort.patchProduct(id, updates);
+		ProductResponse productResponse = mapper.toProductResponse(productModel);
+		
+		return new ResponseEntity<>(productResponse, HttpStatus.OK);
+		
+	}
+	
+	@DeleteMapping("/v1/api/{id}")
+	public ResponseEntity<String> softDeleteProductById(@PathVariable Long id) throws ProductNotFoundException {
+		productServicePort.softDeleteProductById(id);
+		return new ResponseEntity<>("Product successfuly deleted", HttpStatus.OK);
+	}
+	
 }
